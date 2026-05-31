@@ -5,7 +5,7 @@
 @section('content')
 
 <section class="container py-5">
-
+    
     <div class="text-center mb-5">
         <span class="hero-badge">Dummy Page</span>
         <h1 class="fw-bold">Dashboard</h1>

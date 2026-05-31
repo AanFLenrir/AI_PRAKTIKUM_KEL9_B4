@@ -17,22 +17,48 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('about') ? 'active text-success fw-semibold' : '' }}" href="/about">
+                    <a class="nav-link {{ request()->is('about') ? 'active text-success fw-semibold' : '' }}"
+                        href="/about">
                         Tentang
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="btn btn-outline-success px-4" href="/login">
-                        Login
-                    </a>
-                </li>
+                @if (auth()->user())
+                    <li class="nav-item">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a :href="route('logout')" 
+                            onclick="event.preventDefault();
+                            this.closest('form').submit();"
+                            class="btn btn-outline-success px-4"
+                            >
+                                {{ __('Log Out') }}
+                            </a>
+                        </form>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="btn btn-outline-success px-4" href="/login">
+                            Login
+                        </a>
+                    </li>
+                @endif
 
-                <li class="nav-item">
-                    <a class="btn btn-success px-4" href="/register">
-                        Register
-                    </a>
-                </li>
+                @if (auth()->user())
+                    <li class="nav-item">
+                        <a class="btn btn-success px-4" href="{{ route('dashboard') }}">
+                            Dashboard
+                        </a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="btn btn-success px-4" href="/register">
+                            Register
+                        </a>
+                    </li>
+                @endif
+
+
             </ul>
         </div>
     </div>

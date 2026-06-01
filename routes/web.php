@@ -1,18 +1,14 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
 });
-
-Route::get('/dashboard', function () {
-    $user = Auth::user();
-
-    return view('dummy.dashboard', compact('user'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/about', function () {
+    return view('about');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -21,3 +17,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+require __DIR__.'/dashboard.php';

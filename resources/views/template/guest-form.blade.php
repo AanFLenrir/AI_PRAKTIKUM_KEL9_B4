@@ -1,97 +1,95 @@
 @extends('layouts.app')
 
-@section('title', 'Login - SIFUZI Balita')
+@section('title', 'FORM TITLE PAGE - SIFUZI Balita')
 
 @push('page-style')
-<style>
-    /* CUSTOM CSS FOR PAGE */
-</style>
+    <style>
+        /* CUSTOM CSS FOR PAGE */
+    </style>
 @endpush
 
 {{-- MAIN CONTENT SECTION --}}
 @section('content')
 
-    <section class="auth-section">
-        <div class="container">
-            <div class="row justify-content-center align-items-center">
+    <section class="container py-5">
 
-                <div class="col-md-5">
-                    <div class="auth-card card p-4">
+        {{-- EXAMPLE FORM --}}
+        <div class="col-md-5">
+            <div class="auth-card card p-4">
 
-                        <div class="text-center mb-4">
-                            <i class="bi bi-person-circle text-success" style="font-size: 4rem;"></i>
-                            <h3 class="fw-bold mt-3">Login Pengguna</h3>
-                            <p class="text-muted">
-                                Masuk untuk mengakses sistem analisis gizi balita.
-                            </p>
-                        </div>
+                <div class="text-center mb-4">
+                    <i class="bi bi-person-circle text-success" style="font-size: 4rem;"></i>
+                    <h3 class="fw-bold mt-3">CARD HEADER</h3>
+                    <p class="text-muted">
+                        DESCRIPTION
+                    </p>
+                </div>
 
-                        <form method="POST" action="{{ route('login') }}">
-                            <div class="mb-3">
-                                <label class="form-label" for="email">Email</label>
-                                {{-- <input type="email" class="form-control" placeholder="Masukkan email"> --}}
-                                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
-                                    :value="old('email')" required autofocus autocomplete="username"
-                                    placeholder="Masukkan email" />
-                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                            </div>
+                <form method="HTTP.METHOD" action="ACTION_ROUTE">
+                    @csrf
 
-                            <div class="mb-3">
-                                <label class="form-label" for="password">Password</label>
-                                {{-- <input type="password" class="form-control" placeholder="Masukkan password"> --}}
-                                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
-                                    required autocomplete="current-password" placeholder="Masukkan password" />
-                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                            </div>
-
-                            <button type="submit" class="btn btn-success w-100 py-2">
-                                Login
-                            </button>
-
-                            {{-- ! HIDDEN ! --}}
-                            <button type="reset" class="hidden btn btn-success w-100 py-2">
-                                RESET
-                            </button>
-                            {{-- ! HIDDEN ! --}}
-
-                            <!-- Remember Me -->
-                            <div class="block mt-4">
-                                <label for="remember_me" class="inline-flex items-center">
-                                    <input id="remember_me" type="checkbox"
-                                        class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
-                                        name="remember">
-                                    <span
-                                        class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-                                </label>
-                            </div>
-                        </form>
-
-                        <div class="text-center mt-3">
-                            <small>
-                                Belum punya akun?
-                                <a href="/register" class="text-success fw-semibold">Daftar sekarang</a>
-                            </small>
-                        </div>
-
+                    <div class="mb-3">
+                        <label class="form-label" for="FIELD_A">FIELD LABEL</label>
+                        <x-text-input id="FIELD_A" class="block mt-1 w-full" type="FIELD_A" name="FIELD_A"
+                            :value="old('FIELD_A')" required autofocus autocomplete="username" placeholder="PLACEHOLDER" />
+                        <x-input-error :messages="$errors->get('FIELD_A')" class="mt-2" />
                     </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">FIELD LABEL (SELECT)</label>
+                        <select id="FIELD_SELECT_EXAMPLE" name="FIELD_SELECT_EXAMPLE" class="form-select block mt-1 w-full"
+                            required>
+                            <option data-placeholder="true" value="">Pilih Opsi...</option>
+                            <option value="opsi1" {{ old('FIELD_SELECT_EXAMPLE') == 'opsi1' ? 'selected' : '' }}>Opsi Contoh 1
+                            </option>
+                            <option value="opsi2" {{ old('FIELD_SELECT_EXAMPLE') == 'opsi2' ? 'selected' : '' }}>Opsi Contoh 2
+                            </option>
+                            <option value="opsi3" {{ old('FIELD_SELECT_EXAMPLE') == 'opsi3' ? 'selected' : '' }}>Opsi Contoh 3
+                            </option>
+                        </select>
+                        <x-input-error :messages="$errors->get('FIELD')" class="mt-2" />
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn btn-success w-100 py-2">
+                            SUBMIT
+                        </button>
+
+                        {{-- PLEASE DON'T REMOVE THIS RESET BUTTON --}}
+                        {{-- JUST ADD CLASS .hidden TO NOT DISPLAY THIS BUTTON --}}
+                        {{-- NEEDED TO SCRIPT WORK --}}
+                        <button type="reset" class="btn btn-success w-100 py-2">
+                            RESET
+                        </button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-3">
+                    <small>
+                        FOOTER
+                    </small>
                 </div>
 
             </div>
         </div>
+
     </section>
 
 @endsection
 
 {{-- CDNs --}}
 @push('script')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://unpkg.com/slim-select@latest/dist/slimselect.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> {{-- JQUERY --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/slim-select@latest/dist/slimselect.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> {{-- JQUERY --}}
 @endpush
 
 {{-- CDNs Style --}}
 @push('page-style')
-<link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet"></link>
+    <link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet">
+    </link>
 @endpush
 
 {{-- FORM UTILITY SCRIPT --}}
@@ -153,9 +151,9 @@
                     $(this).removeClass('btn-success')
                     $(this).addClass('btn-secondary')
                     $(this).html(`
-                        <span class="spinner-border spinner-border-sm me-2"></span>
-                        Loading...
-                    `)
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                    Loading...
+                                `)
 
                     form.submit()
                 }
@@ -199,7 +197,6 @@
 
         inputs.forEach((input) => {
             input.addEventListener('input', function () {
-                console.log('a')
                 let label = document.querySelector('label[for="' + input.id + '"]');
 
                 if (label && !label.querySelector('span')) {
@@ -227,9 +224,11 @@
         .error {
             color: red;
         }
+
         .outline-red {
             outline: red 1px solid
         }
+
         .form-select-invalid {
             padding: 0.4375rem 0.75rem;
             border: 0;
@@ -250,9 +249,18 @@
     </style>
 @endpush
 
-{{-- SCRIPT PAGE --}}
+{{-- CUSTOM SCRIPT PAGE --}}
 @push('script')
-<script>
-    
-</script>
+    <script>
+        $(document).ready(function () {
+            // Inisialisasi SlimSelect pada ID select terkait
+            new SlimSelect({
+                select: '#FIELD_SELECT_EXAMPLE',
+                settings: {
+                    placeholderText: 'Pilih Opsi...',
+                    allowDeselect: true
+                }
+            });
+        });
+    </script>
 @endpush

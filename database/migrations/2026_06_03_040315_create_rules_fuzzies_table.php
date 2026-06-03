@@ -32,7 +32,7 @@ return new class extends Migration {
             ]);
             $table->enum('kategori_imunisasi', [
                 'Tidak Lengkap',
-                'Sebagian Lengkap',
+                'Sebagian',
                 'Lengkap'
             ]);
             $table->enum('hasil_status_gizi', [

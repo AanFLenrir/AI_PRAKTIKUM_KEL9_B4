@@ -10,6 +10,9 @@ class OrangTua extends Model
 {
     protected $table = 'orang_tua';
     protected $fillable = ['id', 'alamat', 'no_hp'];
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+
     // Relasi ke User (1:1 Kebalikan)
     public function user(): BelongsTo
     {

@@ -10,11 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('imunisasi', function (Blueprint $col) {
-            $col->id('id_imunisasi');
-            $col->string('nama_status_imunisasi', 100);
-            $col->text('keterangan_imunisasi')->nullable();
-            $col->timestamps();
+        Schema::create('imunisasi', function (Blueprint $table) {
+            $table->id('id_imunisasi');
+            $table->string('nama_imunisasi', 100);
+            $table->integer('umur_bulan');
+            $table->text('keterangan_imunisasi')->nullable();
+            $table->timestamps();
         });
     }
 

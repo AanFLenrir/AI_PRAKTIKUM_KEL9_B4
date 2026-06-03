@@ -9,7 +9,7 @@ class Imunisasi extends Model
 {
     protected $table = 'imunisasi';
     protected $primaryKey = 'id_imunisasi';
-    protected $fillable = ['nama_status_imunisasi', 'keterangan_imunisasi'];
+    protected $fillable = ['nama_imunisasi',, 'umur_bulan', 'keterangan_imunisasi'];
     // Relasi Many-to-Many ke Pemeriksaan via Pivot
     public function pemeriksaan(): BelongsToMany
     {

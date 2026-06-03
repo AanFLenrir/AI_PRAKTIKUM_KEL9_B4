@@ -14,6 +14,9 @@
     <!-- Bootstrap Icon -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
+    {{-- FOR NOW JUST USE THIS --}}
+    <script src="https://kit.fontawesome.com/f714303560.js" crossorigin="anonymous"></script>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -28,11 +31,21 @@
 
 <body class="font-sans antialiased">
     {{-- @include('layouts.navigation') --}}
-    
-    @include('partials.header')
+
+    @hasSection('header')
+        @yield('header')
+    @else
+        @if (auth()->user())
+            @include('partials.user.header')
+        @else
+            @include('partials.guest.header')
+        @endif
+    @endif
+
+
 
     <main>
-        @yield('content')
+    @yield('content')
     </main>
 
     @include('partials.footer')

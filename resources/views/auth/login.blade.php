@@ -8,11 +8,15 @@
 </style>
 @endpush
 
+@section('header')
+<nav></nav>
+@endsection
+
 {{-- MAIN CONTENT SECTION --}}
 @section('content')
 
     <section class="auth-section">
-        <div class="container">
+        <div class="container mt-5">
             <div class="row justify-content-center align-items-center">
 
                 <div class="col-md-5">

@@ -10,12 +10,8 @@ use Illuminate\Support\Facades\Route;
  * 3. Add Route to Navigaton to resources\views\layouts\navigation.blade.php
 */
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-});
-
 Route::middleware(['auth', 'role:admin'])
-  ->prefix('/dashboard')
+  ->prefix('/admin')
   ->group(function () {
         Route::get('/master-data', function () {
             return view('admin.master-data.index');

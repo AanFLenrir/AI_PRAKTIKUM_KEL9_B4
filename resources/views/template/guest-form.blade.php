@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app') {{-- CHAGE TO layouts.app-user FOR AUTHENTICATED PAGE --}}
 
 @section('title', 'FORM TITLE PAGE - SIFUZI Balita')
 

@@ -13,10 +13,10 @@
 <section class="container py-5">
 
     <div class="text-center mb-5">
-        <span class="hero-badge">DATA BALITA</span>
-        <h1 class="fw-bold">Calon Halaman Data Balita</h1>
+        <span class="hero-badge">ANALISIS FUZZY</span>
+        <h1 class="fw-bold">Calon Halaman Analisis Fuzzy</h1>
         <p class="text-muted">
-            Ini Akan Menjadi Halaman Untuk Data Balita
+            Ini Akan Menjadi Halaman Untuk Analisis Fuzzy
         </p>
     </div>
 

@@ -1,0 +1,24 @@
+Indeks,Kategori Status Gizi,Ambang Batas (Z-Score)
+Berat Badan menurut Umur (BB/U) anak usia 0 - 60 bulan,Berat badan sangat kurang (severely underweight),<-3 SD
+Berat Badan menurut Umur (BB/U) anak usia 0 - 60 bulan,Berat badan kurang (underweight),- 3 SD sd <- 2 SD
+Berat Badan menurut Umur (BB/U) anak usia 0 - 60 bulan,Berat badan normal,-2 SD sd +1 SD
+Berat Badan menurut Umur (BB/U) anak usia 0 - 60 bulan,Risiko Berat badan lebih,> +1 SD
+Panjang Badan atau Tinggi Badan menurut Umur (PB/U atau TB/U) anak usia 0 - 60 bulan,Sangat pendek (severely stunted),<-3 SD
+Panjang Badan atau Tinggi Badan menurut Umur (PB/U atau TB/U) anak usia 0 - 60 bulan,Pendek (stunted),- 3 SD sd <- 2 SD
+Panjang Badan atau Tinggi Badan menurut Umur (PB/U atau TB/U) anak usia 0 - 60 bulan,Normal,-2 SD sd +3 SD
+Panjang Badan atau Tinggi Badan menurut Umur (PB/U atau TB/U) anak usia 0 - 60 bulan,Tinggi2,> +3 SD
+Berat Badan menurut Panjang Badan atau Tinggi Badan (BB/PB atau BB/TB) anak usia 0 - 60 bulan,Gizi buruk (severely wasted),<-3 SD
+Berat Badan menurut Panjang Badan atau Tinggi Badan (BB/PB atau BB/TB) anak usia 0 - 60 bulan,Gizi kurang (wasted),- 3 SD sd <- 2 SD
+Berat Badan menurut Panjang Badan atau Tinggi Badan (BB/PB atau BB/TB) anak usia 0 - 60 bulan,Gizi baik (normal),-2 SD sd +1 SD
+Berat Badan menurut Panjang Badan atau Tinggi Badan (BB/PB atau BB/TB) anak usia 0 - 60 bulan,Berisiko gizi lebih (possible risk of overweight),> + 1 SD sd + 2 SD
+Berat Badan menurut Panjang Badan atau Tinggi Badan (BB/PB atau BB/TB) anak usia 0 - 60 bulan,Gizi lebih (overweight),> + 2 SD sd + 3 SD
+Berat Badan menurut Panjang Badan atau Tinggi Badan (BB/PB atau BB/TB) anak usia 0 - 60 bulan,Obesitas (obese),> + 3 SD
+Berat Badan menurut Panjang Badan atau Tinggi Badan (BB/PB atau BB/TB) anak usia 0 - 60 bulan,Gizi kurang (wasted)3,- 3 SD sd <- 2 SD
+Berat Badan menurut Panjang Badan atau Tinggi Badan (BB/PB atau BB/TB) anak usia 0 - 60 bulan,Gizi baik (normal),-2 SD sd +1 SD
+Berat Badan menurut Panjang Badan atau Tinggi Badan (BB/PB atau BB/TB) anak usia 0 - 60 bulan,Berisiko gizi lebih (possible risk of overweight),> + 1 SD sd + 2 SD
+Berat Badan menurut Panjang Badan atau Tinggi Badan (BB/PB atau BB/TB) anak usia 0 - 60 bulan,Gizi lebih (overweight),> + 2 SD sd +3 SD
+Berat Badan menurut Panjang Badan atau Tinggi Badan (BB/PB atau BB/TB) anak usia 0 - 60 bulan,Obesitas (obese),> + 3 SD
+Umur (IMT/U) anak usia 5 - 18 tahun,Gizi kurang (thinness),- 3 SD sd <- 2 SD
+Umur (IMT/U) anak usia 5 - 18 tahun,Gizi baik (normal),-2 SD sd +1 SD
+Umur (IMT/U) anak usia 5 - 18 tahun,Gizi lebih (overweight),+ 1 SD sd +2 SD
+Umur (IMT/U) anak usia 5 - 18 tahun,Obesitas (obese),> + 2 SD

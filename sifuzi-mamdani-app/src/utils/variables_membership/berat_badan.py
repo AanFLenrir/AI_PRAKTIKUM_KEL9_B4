@@ -3,13 +3,21 @@ from src.utils.membership_funcs import (
     kurva_segitiga,
     kurva_trapesium_kanan
 )
+from typing import Dict, Optional
 
-def hitung_derajat_berat_badan(berat_kg: float) -> dict:
+def hitung_derajat_berat_badan(berat_kg: float, sd_values: Optional[Dict[str, float]] = None) -> dict:
     """
     Menghitung derajat keanggotaan untuk kategori Berat Badan (Ringan, Sedang, Berat)
-    berdasarkan rumus dari Kelompok 9.
+    berdasarkan tabel WHO Dinamis.
     """
     x = berat_kg
+    
+    if sd_values:
+        return {
+            "Ringan": kurva_trapesium_kiri(x, a=sd_values["min_2"], b=sd_values["median"]),
+            "Sedang": kurva_segitiga(x, a=sd_values["min_2"], b=sd_values["median"], c=sd_values["plus_2"]),
+            "Berat": kurva_trapesium_kanan(x, a=sd_values["median"], b=sd_values["plus_2"])
+        }
     
     return {
         "Ringan": kurva_trapesium_kiri(x, a=3.0, b=7.0),

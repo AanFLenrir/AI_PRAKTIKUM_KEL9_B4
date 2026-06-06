@@ -36,3 +36,11 @@ class ImunisasiRepository(IImunisasiRepository):
         models = result.scalars().all()
         
         return [Imunisasi.model_validate(m) for m in models]
+
+    async def find_up_to_umur(self, umur_bulan: int) -> List[Imunisasi]:
+        """Query: SELECT * FROM imunisasi WHERE umur_bulan <= :umur"""
+        query = select(ImunisasiModel).where(ImunisasiModel.umur_bulan <= umur_bulan)
+        result = await self._db.execute(query)
+        models = result.scalars().all()
+        
+        return [Imunisasi.model_validate(m) for m in models]

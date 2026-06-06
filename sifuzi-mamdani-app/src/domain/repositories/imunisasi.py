@@ -13,3 +13,6 @@ class IImunisasiRepository(ABC):
     @abstractmethod
     async def find_by_umur(self, umur_bulan: int) -> List[Imunisasi]:
         pass
+    @abstractmethod
+    async def find_up_to_umur(self, umur_bulan: int) -> List[Imunisasi]:
+        pass

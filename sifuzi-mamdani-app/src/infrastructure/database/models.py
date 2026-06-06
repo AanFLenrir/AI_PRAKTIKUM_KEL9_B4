@@ -15,9 +15,9 @@ class RulesFuzzyModel(Base):
     id_rule = Column(Integer, primary_key=True, index=True)
     fase_umur = Column(Enum(*FaseUmurType.__args__), nullable=False)
     kategori_berat = Column(Enum(*KategoriBeratType.__args__), nullable=False)
-    kategori_tinggi = Column(String(*KategoriTinggiType.__args__), nullable=False)
-    kategori_imunisasi = Column(*KategoriImunisasiType.__args__, nullable=False)
-    hasil_status_gizi = Column(*HasilStatusGiziType.__args__, nullable=False)
+    kategori_tinggi = Column(Enum(*KategoriTinggiType.__args__), nullable=False)
+    kategori_imunisasi = Column(Enum(*KategoriImunisasiType.__args__), nullable=False)
+    hasil_status_gizi = Column(Enum(*HasilStatusGiziType.__args__), nullable=False)
 
 class ImunisasiModel(Base):
     __tablename__ = "imunisasi" 

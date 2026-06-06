@@ -1,0 +1,4 @@
+from .umur import hitung_derajat_fase_umur
+from .berat_badan import hitung_derajat_berat_badan
+from .tinggi_badan import hitung_derajat_tinggi_badan
+from .status_gizi import hitung_derajat_status_gizi

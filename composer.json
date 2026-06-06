@@ -48,7 +48,11 @@
         "db-fresh": [
             "@php artisan migrate:fresh",
             "@php artisan db:seed --class=RolePermissionSeed",
-            "@php artisan db:seed --class=UserDummySeed"
+            "@php artisan db:seed --class=UserDummySeed",
+            "@php artisan db:seed --class=StatusGiziSeeder",
+            "@php artisan db:seed --class=ImunisasiSeeder",
+            "@php artisan db:seed --class=RuleFuzzySeeder",
+            "@php artisan db:seed --class=OrangTuaBalitaSeeder"  
         ],
         "add-library": [
             "composer install",

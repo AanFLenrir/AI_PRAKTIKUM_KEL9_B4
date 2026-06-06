@@ -4,15 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('imunisasis', function (Blueprint $table) {
-            $table->id();
+        Schema::create('imunisasi', function (Blueprint $table) {
+            $table->id('id_imunisasi');
+            $table->string('nama_imunisasi', 100);
+            $table->integer('umur_bulan');
+            $table->text('keterangan_imunisasi')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('imunisasis');
+        Schema::dropIfExists('imunisasi');
     }
 };

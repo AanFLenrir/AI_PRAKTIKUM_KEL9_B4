@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
         //! NOT WORKED !//
 
         //? TO COMPESATE
-        //? Run one by one in CLI
+        //? Run `composer db-fresh`
     }
 }

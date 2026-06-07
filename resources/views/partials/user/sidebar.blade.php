@@ -34,7 +34,7 @@
                         <i class="fa-solid fa-chart-line"></i>
                         <span>Analisis Gizi</span>
                     </div>
-                    <button class="btn-add-sidebar ms-auto" aria-label="Tambah Analisis" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='{{ route('analisis-fuzzy.create') }}';">
+                    <button class="btn-add-sidebar ms-auto" aria-label="Tambah Analisis" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='{{ route('analisis-fuzzy.create', ['new' => 1]) }}';">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </a>

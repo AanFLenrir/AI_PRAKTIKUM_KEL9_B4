@@ -183,7 +183,7 @@
                                     <td><span class="badge bg-success py-2 px-3 rounded-pill">{{ $ageInMonths }} Bulan</span></td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-2">
-                                            <a href="{{ route('analisis-fuzzy.create', ['balita_id' => $b->id_balita]) }}" class="btn-action btn-action-analisis" title="Analisis Gizi">
+                                            <a href="{{ route('analisis-fuzzy.create', ['balita_id' => $b->id_balita, 'new' => 1]) }}" class="btn-action btn-action-analisis" title="Analisis Gizi">
                                                 <i class="fa-solid fa-calculator"></i>
                                             </a>
                                             @canany(['update-any-balita', 'update-own-balita'])
@@ -237,7 +237,7 @@
                                 <i class="fa-solid fa-cake-candles me-2 text-success"></i>{{ $birthDate->translatedFormat('d F Y') }}
                             </div>
                             <div class="d-flex flex-wrap gap-2">
-                                <a href="{{ route('analisis-fuzzy.create', ['balita_id' => $b->id_balita]) }}" class="btn btn-success btn-sm flex-grow-1 py-2 rounded-3 fw-semibold text-white">
+                                <a href="{{ route('analisis-fuzzy.create', ['balita_id' => $b->id_balita, 'new' => 1]) }}" class="btn btn-success btn-sm flex-grow-1 py-2 rounded-3 fw-semibold text-white">
                                     <i class="fa-solid fa-calculator me-1"></i> Analisis
                                 </a>
                                 @canany(['update-any-balita', 'update-own-balita'])

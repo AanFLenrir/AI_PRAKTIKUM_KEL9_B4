@@ -35,7 +35,7 @@
             <p class="text-muted mb-0">Monitoring status gizi balita menggunakan logika fuzzy Mamdani.</p>
         </div>
         <div class="d-flex gap-2">
-            <a href="{{ route('analisis-fuzzy.create') }}" class="btn btn-primary px-4 py-2.5 rounded-3 d-flex align-items-center gap-2 text-white text-decoration-none">
+            <a href="{{ route('analisis-fuzzy.create', ['new' => 1]) }}" class="btn btn-primary px-4 py-2.5 rounded-3 d-flex align-items-center gap-2 text-white text-decoration-none">
                 <i class="fa-solid fa-calculator"></i> Lakukan Analisis
             </a>
             <button id="btn_refresh" class="btn btn-success px-4 py-2.5 rounded-3 d-flex align-items-center gap-2 text-white">

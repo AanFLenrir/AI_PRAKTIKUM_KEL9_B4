@@ -80,7 +80,7 @@
             <h1 class="fw-bold mt-2 mb-0">Riwayat Pemeriksaan & Analisis Gizi</h1>
             <p class="text-muted mb-0">Lihat hasil analisis fuzzy gizi balita serta klasifikasi antropometri Z-Score secara lengkap.</p>
         </div>
-        <a href="{{ route('analisis-fuzzy.create') }}" class="btn btn-success px-4 py-2.5 rounded-3">
+        <a href="{{ route('analisis-fuzzy.create', ['new' => 1]) }}" class="btn btn-success px-4 py-2.5 rounded-3">
             <i class="fa-solid fa-calculator me-2"></i>Lakukan Analisis
         </a>
     </div>

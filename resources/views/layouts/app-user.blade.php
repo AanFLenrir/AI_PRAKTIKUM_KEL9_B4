@@ -26,7 +26,7 @@
     @stack('page-style')
 
     {{-- To Hot Reload --}}
-    @vite([])
+    {{-- @vite([]) --}}
 </head>
 
 <body class="dashboard-body sidebar-expanded font-sans antialiased">

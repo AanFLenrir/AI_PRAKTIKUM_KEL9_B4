@@ -113,12 +113,20 @@
 
                         <!-- Daftar Imunisasi -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold" for="daftar_imunisasi">Daftar Imunisasi yang
-                                Diterima</label>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label class="form-label fw-semibold mb-0" for="daftar_imunisasi">Daftar Imunisasi yang
+                                    Diterima</label>
+                                <button type="button" id="btn_rekomendasi_imunisasi"
+                                    class="btn btn-sm btn-outline-success py-1 px-2.5 rounded-2"
+                                    style="font-size: 0.75rem;">
+                                    <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Imunisasi Rekomendasi
+                                </button>
+                            </div>
                             <select id="daftar_imunisasi" name="daftar_imunisasi[]" class="block mt-1 w-full" multiple
                                 required>
                                 @foreach($imunisasiList as $imun)
-                                    <option value="{{ $imun->nama_imunisasi }}">{{ $imun->nama_imunisasi }} (Usia:
+                                    <option value="{{ $imun->nama_imunisasi }}" data-umur="{{ $imun->umur_bulan }}">
+                                        {{ $imun->nama_imunisasi }} (Usia:
                                         {{ $imun->umur_bulan }} Bln)
                                     </option>
                                 @endforeach
@@ -231,9 +239,9 @@
                     $(this).removeClass('btn-success')
                     $(this).addClass('btn-secondary')
                     $(this).html(`
-                                                    <span class="spinner-border spinner-border-sm me-2"></span>
-                                                    Loading...
-                                                `)
+                            <span class="spinner-border spinner-border-sm me-2"></span>
+                            Loading...
+                        `)
 
                     // Kirim form via AJAX
                     submitFormViaAjax();
@@ -278,8 +286,36 @@
                         $('#balita_info_card').addClass('d-none');
                     }
                 });
+            }); // <--- PERBAIKAN DI SINI (Menutup listener change id_balita)
+
+            // Auto-select recommended immunizations based on toddler's current age
+            $('#btn_rekomendasi_imunisasi').click(function (e) {
+                e.preventDefault();
+                const umurBulan = parseFloat($('#balita_info_card').data('umur_bulan'));
+                if (isNaN(umurBulan)) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Pilih Balita Terlebih Dahulu',
+                        text: 'Silakan pilih balita terlebih dahulu untuk menggunakan fitur imunisasi rekomendasi.'
+                    });
+                    return;
+                }
+
+                const selectedImunisasi = [];
+                $('#daftar_imunisasi option').each(function () {
+                    const optionUmur = parseFloat($(this).data('umur'));
+                    if (!isNaN(optionUmur) && optionUmur <= umurBulan) {
+                        selectedImunisasi.push($(this).val());
+                    }
+                });
+
+                if (window.slimSelectInstance) {
+                    window.slimSelectInstance.setSelected(selectedImunisasi);
+                } else {
+                    $('#daftar_imunisasi').val(selectedImunisasi).trigger('change');
+                }
             });
-        });
+        }); // <--- PERBAIKAN DI SINI (Menutup $(document).ready )
 
         function submitFormViaAjax() {
             const jenisKelamin = $('#balita_info_card').data('jenis_kelamin');
@@ -304,8 +340,6 @@
                 tinggi_badan: parseFloat($('#tinggi_badan').val()),
                 daftar_imunisasi: $('#daftar_imunisasi').val() || []
             };
-
-
 
             $.ajax({
                 url: '/api/calculate-all',
@@ -401,7 +435,7 @@
                     ]);
                     window.slimSelectBalita.disable();
                 @endif
-                                }
+                                    }
         }
 
         if (resetBtn) {
@@ -531,8 +565,8 @@
                 });
             @endif
 
-            // If the query parameter 'new' or 'reset' is present in the URL, clear stored input
-            const urlParams = new URLSearchParams(window.location.search);
+                // If the query parameter 'new' or 'reset' is present in the URL, clear stored input
+                const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('new') || urlParams.has('reset')) {
                 sessionStorage.removeItem('fuzzy_input');
                 sessionStorage.removeItem('fuzzy_result');
@@ -577,12 +611,12 @@
                         }, 100);
                     }
                 @else
-                                                    if (window.slimSelectBalita) {
+                                                            if (window.slimSelectBalita) {
                         window.slimSelectBalita.setSelected(initialBalitaId);
                         $('#id_balita').trigger('change');
                     }
                 @endif
-                            }
+                                }
 
             if (initialData) {
                 if (initialData.berat_badan) $('#berat_badan').val(initialData.berat_badan).trigger('input');

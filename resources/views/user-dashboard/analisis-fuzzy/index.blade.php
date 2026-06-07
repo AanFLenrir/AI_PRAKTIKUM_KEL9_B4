@@ -1,266 +1,215 @@
 @extends('layouts.app-user')
 
-@section('title', 'FORM TITLE PAGE - SIFUZI Balita')
+@section('title', 'Analisis Gizi - SIFUZI Balita')
 
 @push('page-style')
-    <style>
-        /* CUSTOM CSS FOR PAGE */
-    </style>
+<style>
+    .table-responsive {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .custom-table th {
+        background-color: var(--color-primary);
+        color: #ffffff;
+        font-weight: 600;
+        border: none;
+    }
+    .custom-table td {
+        vertical-align: middle;
+    }
+    .gender-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 500;
+        font-size: 0.8rem;
+    }
+    .gender-l {
+        background-color: #e3f2fd;
+        color: #0d6efd;
+    }
+    .gender-p {
+        background-color: #fce4ec;
+        color: #e91e63;
+    }
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 500;
+        font-size: 0.8rem;
+        display: inline-block;
+    }
+    .status-gizi-buruk {
+        background-color: #f8d7da;
+        color: #842029;
+    }
+    .status-gizi-kurang {
+        background-color: #fff3cd;
+        color: #664d03;
+    }
+    .status-normal {
+        background-color: #d1e7dd;
+        color: #0f5132;
+    }
+    .status-gizi-lebih {
+        background-color: #cff4fc;
+        color: #087990;
+    }
+    .status-obesitas {
+        background-color: #e2e3e5;
+        color: #41464b;
+    }
+    .mobile-card {
+        border: 1px solid #e9ecef;
+        border-radius: 16px;
+        transition: 0.2s;
+    }
+    .mobile-card:hover {
+        border-color: var(--color-primary);
+        box-shadow: 0 4px 15px rgba(25, 135, 84, 0.08);
+    }
+</style>
 @endpush
 
-{{-- MAIN CONTENT SECTION --}}
 @section('content')
+<section class="container py-4">
 
-    <section class="container py-5">
-
-        {{-- EXAMPLE FORM --}}
-        <div class="col-md-5">
-            <div class="auth-card card p-4">
-
-                <div class="text-center mb-4">
-                    <i class="bi bi-person-circle text-success" style="font-size: 4rem;"></i>
-                    <h3 class="fw-bold mt-3">Analisis Fuzzy</h3>
-                    <p class="text-muted">
-                        DESCRIPTION
-                    </p>
-                </div>
-
-                <form method="HTTP.METHOD" action="ACTION_ROUTE">
-                    @csrf
-
-                    <div class="mb-3">
-                        <label class="form-label" for="FIELD_A">FIELD LABEL</label>
-                        <x-text-input id="FIELD_A" class="block mt-1 w-full" type="FIELD_A" name="FIELD_A"
-                            :value="old('FIELD_A')" required autofocus autocomplete="username" placeholder="PLACEHOLDER" />
-                        <x-input-error :messages="$errors->get('FIELD_A')" class="mt-2" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">FIELD LABEL (SELECT)</label>
-                        <select id="FIELD_SELECT_EXAMPLE" name="FIELD_SELECT_EXAMPLE" class="form-select block mt-1 w-full"
-                            required>
-                            <option data-placeholder="true" value="">Pilih Opsi...</option>
-                            <option value="opsi1" {{ old('FIELD_SELECT_EXAMPLE') == 'opsi1' ? 'selected' : '' }}>Opsi Contoh 1
-                            </option>
-                            <option value="opsi2" {{ old('FIELD_SELECT_EXAMPLE') == 'opsi2' ? 'selected' : '' }}>Opsi Contoh 2
-                            </option>
-                            <option value="opsi3" {{ old('FIELD_SELECT_EXAMPLE') == 'opsi3' ? 'selected' : '' }}>Opsi Contoh 3
-                            </option>
-                        </select>
-                        <x-input-error :messages="$errors->get('FIELD')" class="mt-2" />
-                    </div>
-
-                    <div>
-                        <button type="submit" class="btn btn-success w-100 py-2">
-                            SUBMIT
-                        </button>
-
-                        {{-- PLEASE DON'T REMOVE THIS RESET BUTTON --}}
-                        {{-- JUST ADD CLASS .hidden TO NOT DISPLAY THIS BUTTON --}}
-                        {{-- NEEDED TO SCRIPT WORK --}}
-                        <button type="reset" class="btn btn-success w-100 py-2">
-                            RESET
-                        </button>
-                    </div>
-                </form>
-
-                <div class="text-center mt-3">
-                    <small>
-                        FOOTER
-                    </small>
-                </div>
-
-            </div>
+    {{-- BREADCRUMB / HERO BADGE --}}
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <div>
+            <span class="hero-badge">ANALISIS GIZI</span>
+            <h1 class="fw-bold mt-2 mb-0">Riwayat Pemeriksaan & Analisis Gizi</h1>
+            <p class="text-muted mb-0">Lihat hasil analisis fuzzy gizi balita serta klasifikasi antropometri Z-Score secara lengkap.</p>
         </div>
+        <a href="{{ route('analisis-fuzzy.create') }}" class="btn btn-success px-4 py-2.5 rounded-3">
+            <i class="fa-solid fa-calculator me-2"></i>Lakukan Analisis
+        </a>
+    </div>
 
-    </section>
+    <!-- Search Box -->
+    <div class="card info-card shadow-sm p-4 mb-4">
+        <form action="{{ route('analisis-fuzzy.index') }}" method="GET" class="row g-3 align-items-center">
+            <div class="col-md-9 col-sm-8">
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="text" name="search" class="form-control border-start-0 ps-0" placeholder="Cari nama balita..." value="{{ $search ?? '' }}">
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 d-grid">
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success flex-grow-1"><i class="fa-solid fa-filter me-2"></i>Cari</button>
+                    @if(!empty($search))
+                        <a href="{{ route('analisis-fuzzy.index') }}" class="btn btn-outline-secondary"><i class="fa-solid fa-rotate-left"></i></a>
+                    @endif
+                </div>
+            </div>
+        </form>
+    </div>
 
+    <!-- Data Table / Cards -->
+    <div class="card info-card shadow-sm p-4">
+        @if($pemeriksaans->isEmpty())
+            <div class="text-center py-5">
+                <i class="fa-solid fa-chart-line text-muted mb-3" style="font-size: 3rem;"></i>
+                <p class="text-muted mb-0">Belum ada riwayat analisis gizi yang terdaftar.</p>
+            </div>
+        @else
+            <!-- Desktop Table View -->
+            <div class="table-responsive d-none d-md-block">
+                <table class="table table-hover align-middle custom-table mb-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">No</th>
+                            <th>Nama Balita</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Tanggal Periksa</th>
+                            <th>Umur (Bulan)</th>
+                            <th>Status Gizi (Fuzzy)</th>
+                            <th>Nilai Fuzzy</th>
+                            <th style="width: 120px;" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($pemeriksaans as $index => $p)
+                            @php
+                                $statusName = $p->statusGizi->nama_status ?? 'Tidak Diketahui';
+                                $statusClass = 'status-normal';
+                                if ($statusName === 'Gizi Buruk') $statusClass = 'status-gizi-buruk';
+                                elseif ($statusName === 'Gizi Kurang') $statusClass = 'status-gizi-kurang';
+                                elseif ($statusName === 'Gizi Lebih') $statusClass = 'status-gizi-lebih';
+                                elseif ($statusName === 'Obesitas') $statusClass = 'status-obesitas';
+                            @endphp
+                            <tr>
+                                <td>{{ $pemeriksaans->firstItem() + $index }}</td>
+                                <td class="fw-semibold text-dark">{{ $p->balita->nama_balita }}</td>
+                                <td>
+                                    @if($p->balita->jenis_kelamin === 'L')
+                                        <span class="gender-badge gender-l"><i class="fa-solid fa-mars me-1"></i>Laki-laki</span>
+                                    @else
+                                        <span class="gender-badge gender-p"><i class="fa-solid fa-venus me-1"></i>Perempuan</span>
+                                    @endif
+                                </td>
+                                <td>{{ \Carbon\Carbon::parse($p->tanggal_periksa)->translatedFormat('d F Y') }}</td>
+                                <td><span class="badge bg-success py-2 px-3 rounded-pill">{{ number_format($p->umur_bulan, 1) }} Bulan</span></td>
+                                <td>
+                                    <span class="status-badge {{ $statusClass }}">{{ $statusName }}</span>
+                                </td>
+                                <td class="fw-bold">{{ number_format($p->nilai_fuzzy, 2) }}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('analisis-fuzzy.show', $p->id_pemeriksaan) }}" class="btn btn-success btn-sm px-3 py-2">
+                                        <i class="fa-regular fa-eye me-2"></i>Detail
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile Card View -->
+            <div class="d-block d-md-none">
+                @foreach($pemeriksaans as $index => $p)
+                    @php
+                        $statusName = $p->statusGizi->nama_status ?? 'Tidak Diketahui';
+                        $statusClass = 'status-normal';
+                        if ($statusName === 'Gizi Buruk') $statusClass = 'status-gizi-buruk';
+                        elseif ($statusName === 'Gizi Kurang') $statusClass = 'status-gizi-kurang';
+                        elseif ($statusName === 'Gizi Lebih') $statusClass = 'status-gizi-lebih';
+                        elseif ($statusName === 'Obesitas') $statusClass = 'status-obesitas';
+                    @endphp
+                    <div class="mobile-card p-3 mb-3 bg-white shadow-sm">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h6 class="fw-bold text-dark mb-0">{{ $p->balita->nama_balita }}</h6>
+                            <span class="badge bg-success rounded-pill px-2.5 py-1.5">{{ number_format($p->umur_bulan, 1) }} Bulan</span>
+                        </div>
+                        <div class="mb-2">
+                            @if($p->balita->jenis_kelamin === 'L')
+                                <span class="gender-badge gender-l d-inline-block"><i class="fa-solid fa-mars me-1"></i>Laki-laki</span>
+                            @else
+                                <span class="gender-badge gender-p d-inline-block"><i class="fa-solid fa-venus me-1"></i>Perempuan</span>
+                            @endif
+                        </div>
+                        <div class="small text-muted mb-2">
+                            <i class="fa-regular fa-calendar me-2 text-success"></i>{{ \Carbon\Carbon::parse($p->tanggal_periksa)->translatedFormat('d F Y') }}
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="status-badge {{ $statusClass }}">{{ $statusName }}</span>
+                            <span class="small text-muted">Nilai: <strong class="text-dark">{{ number_format($p->nilai_fuzzy, 2) }}</strong></span>
+                        </div>
+                        <div class="d-grid">
+                            <a href="{{ route('analisis-fuzzy.show', $p->id_pemeriksaan) }}" class="btn btn-success py-2 rounded-3 btn-sm fw-semibold">
+                                <i class="fa-regular fa-eye me-2"></i>Lihat Detail
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-4 d-flex justify-content-center">
+                {{ $pemeriksaans->appends(['search' => $search ?? ''])->links('pagination::bootstrap-5') }}
+            </div>
+        @endif
+    </div>
+
+</section>
 @endsection
-
-{{-- CDNs --}}
-@push('script')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://unpkg.com/slim-select@latest/dist/slimselect.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script> {{-- JQUERY --}}
-@endpush
-
-{{-- CDNs Style --}}
-@push('page-style')
-    <link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet">
-    </link>
-@endpush
-
-{{-- FORM UTILITY SCRIPT --}}
-{{-- Error Before Send Script --}}
-@push('script')
-    <script>
-        $(document).ready(function () {
-            const form = $("main form")
-            $("button[type='submit']").click(function (e) {
-                let isValid = true
-                e.preventDefault()
-
-                const inputs = form.find("input")
-                const selects = form.find("select")
-
-                inputs.each(function () {
-                    if (this.validity.valueMissing) {
-                        isValid = false
-                        this.classList.add('is-invalid')
-                        const requiredErrSPAN = $('<span>', {
-                            class: "error",
-                            text: "Required"
-                        })
-
-                        if ($(this).parent().hasClass("input-group")) {
-                            $(this).parent().addClass("outline-red")
-                            if ($(this).parent().next(".error").length === 0) {
-                                $(this).parent().after(requiredErrSPAN)
-                            }
-                        } else {
-                            if (!$(this).next().hasClass("error")) {
-                                $(this).after(requiredErrSPAN)
-                            }
-                        }
-                    }
-                })
-
-                selects.each(function () {
-                    if (this.validity.valueMissing) {
-                        isValid = false
-                        this.classList.remove('form-select')
-                        this.classList.add('is-invalid')
-                        this.classList.add('form-select-invalid')
-
-                        if (!$(this).next().hasClass("error")) {
-                            const requiredErrSPAN = $('<span>', {
-                                class: "error",
-                                text: "Required"
-                            })
-                            $(this).after(requiredErrSPAN)
-                        }
-                    }
-                })
-
-                if (isValid) {
-                    $("main form input, main form select").prop('readonly', true)
-                    $("main form button[type='submit'], main form button[type='reset']").prop('disabled', true)
-
-                    $(this).removeClass('btn-success')
-                    $(this).addClass('btn-secondary')
-                    $(this).html(`
-                                    <span class="spinner-border spinner-border-sm me-2"></span>
-                                    Loading...
-                                `)
-
-                    form.submit()
-                }
-            })
-        })
-    </script>
-@endpush
-{{-- Star when field changed --}}
-@push('script')
-    <script>
-        // Bintang Bintang 
-        const resetInputStar = () => {
-            const labels = document.querySelectorAll('label');
-            labels.forEach((label) => {
-                const star = label.querySelector('span.text-danger');
-                if (star) {
-                    star.remove();
-                }
-            })
-        }
-
-        const inputGroups = document.querySelectorAll("main form .input-group")
-        const inputs = document.querySelectorAll('main form input');
-        const selects = document.querySelectorAll('main form select');
-        const resetBtn = document.querySelector('button[type="reset"]')
-        resetBtn.addEventListener('click', (e) => {
-            resetInputStar()
-            inputs.forEach((input) => {
-                input.classList.remove('is-invalid')
-            })
-            selects.forEach((select) => {
-                select.classList.remove('is-invalid')
-                select.classList.remove('form-select-invalid')
-                select.classList.add('form-select')
-            })
-            inputGroups.forEach((inputGroup) => {
-                inputGroup.classList.remove('outline-red')
-            })
-            document.querySelectorAll('.error').forEach((e) => e.remove())
-        })
-
-        inputs.forEach((input) => {
-            input.addEventListener('input', function () {
-                let label = document.querySelector('label[for="' + input.id + '"]');
-
-                if (label && !label.querySelector('span')) {
-                    label.innerHTML += ' <span class="text-muted">*</span>';
-                }
-            });
-        });
-
-        selects.forEach((input) => {
-            input.addEventListener('input', function () {
-                let label = document.querySelector('label[for="' + input.id + '"]');
-
-                if (label && !label.querySelector('span')) {
-                    label.innerHTML += ' <span class="text-muted">*</span>';
-                }
-            });
-        });
-
-    </script>
-@endpush
-
-{{-- FORM STYLE CLASSES --}}
-@push('page-style')
-    <style>
-        .error {
-            color: red;
-        }
-
-        .outline-red {
-            outline: red 1px solid
-        }
-
-        .form-select-invalid {
-            padding: 0.4375rem 0.75rem;
-            border: 0;
-            outline: 1px solid #ff0000;
-            color: #ff3b3b;
-            display: block;
-            width: 100%;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 16px 12px;
-            border-radius: var(--bs-border-radius);
-            --bs-form-select-bg-img: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e);
-        }
-    </style>
-@endpush
-
-{{-- CUSTOM SCRIPT PAGE --}}
-@push('script')
-    <script>
-        $(document).ready(function () {
-            // Inisialisasi SlimSelect pada ID select terkait
-            new SlimSelect({
-                select: '#FIELD_SELECT_EXAMPLE',
-                settings: {
-                    placeholderText: 'Pilih Opsi...',
-                    allowDeselect: true
-                }
-            });
-        });
-    </script>
-@endpush

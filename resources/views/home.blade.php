@@ -23,11 +23,11 @@
                     secara lebih terstruktur dan informatif.
                 </p>
 
-                <div class="d-flex gap-3 mt-4">
-                    <a href="/login" class="btn btn-success btn-lg px-4">
+                <div class="d-flex flex-column flex-sm-row gap-3 mt-4">
+                    <a href="/login" class="btn btn-success btn-lg px-4 w-100 w-sm-auto text-center">
                         Mulai Analisis
                     </a>
-                    <a href="/about" class="btn btn-outline-success btn-lg px-4">
+                    <a href="/about" class="btn btn-outline-success btn-lg px-4 w-100 w-sm-auto text-center">
                         Pelajari Sistem
                     </a>
                 </div>

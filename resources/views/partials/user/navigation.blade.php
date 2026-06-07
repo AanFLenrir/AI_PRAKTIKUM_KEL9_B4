@@ -43,18 +43,27 @@
             </div>
 
             <!-- User Menu -->
+            @php
+                $roleName = Auth::user()->getRoleNames()->first();
+                $displayRole = match($roleName) {
+                    'admin' => 'Administrator',
+                    'tenaga-kesehatan' => 'Tenaga Kesehatan',
+                    'orang-tua' => 'Orang Tua',
+                    default => ucfirst($roleName)
+                };
+            @endphp
             <div class="dropdown">
                 <button class="btn btn-link text-decoration-none p-0 d-flex align-items-center gap-2" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="nav-user-avatar">
                         <i class="fa-solid fa-user"></i>
                     </div>
                     <div class="text-start d-none d-md-block">
-                        <div class="fw-semibold text-dark leading-none" style="font-size: 0.85rem;">Petugas Gizi</div>
-                        <div class="text-muted" style="font-size: 0.75rem;">Administrator</div>
+                        <div class="fw-semibold text-dark leading-none" style="font-size: 0.85rem;">{{ Auth::user()->name }}</div>
+                        <div class="text-muted" style="font-size: 0.75rem;">{{ $displayRole }}</div>
                     </div>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
-                    <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user me-2"></i>Profil</a></li>
+                    <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="fa-regular fa-user me-2"></i>Profil</a></li>
                     <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear me-2"></i>Pengaturan Akun</a></li>
                     <li><a class="dropdown-item" href="#"><i class="fa-regular fa-circle-question me-2"></i>Bantuan</a></li>
                     <li><hr class="dropdown-divider"></li>

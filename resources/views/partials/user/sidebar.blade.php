@@ -15,30 +15,32 @@
     <div class="p-3 flex-grow-1 overflow-y-auto">
         <ul class="list-unstyled mb-0">
             <li>
-                <a href="#" class="sidebar-link active" data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
+                <a href="{{ route('dashboard') }}" class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Home">
                     <i class="fa-solid fa-house"></i>
                     <span>Home</span>
                 </a>
             </li>
+            @canany(['view-any-balita', 'view-own-balita'])
             <li>
-                <a href="#" class="sidebar-link" data-bs-toggle="tooltip" data-bs-placement="right" title="Data Balita">
+                <a href="{{ route('balita.index') }}" class="sidebar-link {{ request()->routeIs('balita.*') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Data Balita">
                     <i class="fa-solid fa-child-reaching"></i>
                     <span>Data Balita</span>
                 </a>
             </li>
+            @endcanany
             <li>
-                <a href="#" class="sidebar-link d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Analisis Gizi">
+                <a href="{{ route('analisis-fuzzy.index') }}" class="sidebar-link {{ request()->routeIs('analisis-fuzzy.*') ? 'active' : '' }} d-flex align-items-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Analisis Gizi">
                     <div class="d-flex align-items-center gap-3">
                         <i class="fa-solid fa-chart-line"></i>
                         <span>Analisis Gizi</span>
                     </div>
-                    <button class="btn-add-sidebar ms-auto" aria-label="Tambah Analisis">
+                    <button class="btn-add-sidebar ms-auto" aria-label="Tambah Analisis" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='{{ route('analisis-fuzzy.create') }}';">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </a>
             </li>
             <li>
-                <a href="#" class="sidebar-link" data-bs-toggle="tooltip" data-bs-placement="right" title="Statistik">
+                <a href="{{ route('statistik') }}" class="sidebar-link {{ request()->routeIs('statistik') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Statistik">
                     <i class="fa-solid fa-chart-pie"></i>
                     <span>Statistik</span>
                 </a>

@@ -32,7 +32,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is(route('analisis-fuzzy.create')) ? 'active text-success fw-semibold' : '' }}"
-                        href="{{ route('analisis-fuzzy.create') }}">
+                        href="{{ route('analisis-fuzzy.create', ['new' => 1]) }}">
                         Analisis Sekarang
                     </a>
                 </li>

@@ -21,7 +21,8 @@
         <div class="mb-4">
             <span class="hero-badge">LAKUKAN ANALISIS</span>
             <h1 class="fw-bold mt-2">Formulir Analisis Gizi</h1>
-            <p class="text-muted">Pilih balita, lalu masukkan data fisik dan imunisasi untuk menghitung klasifikasi antropometri Z-Score dan logika fuzzy Mamdani.</p>
+            <p class="text-muted">Pilih balita, lalu masukkan data fisik dan imunisasi untuk menghitung klasifikasi
+                antropometri Z-Score dan logika fuzzy Mamdani.</p>
         </div>
 
         <div class="row justify-content-center">
@@ -54,7 +55,8 @@
                         <!-- Pilih Balita -->
                         <div class="mb-3">
                             <label class="form-label fw-semibold" for="id_balita">Pilih Balita</label>
-                            <select id="id_balita" name="id_balita" class="block mt-1 w-full" required @if(auth()->user()->can('view-any-balita')) disabled @endif>
+                            <select id="id_balita" name="id_balita" class="block mt-1 w-full" required
+                                @if(auth()->user()->can('view-any-balita')) disabled @endif>
                                 @if(auth()->user()->can('view-any-balita'))
                                     <option value="" disabled selected>Pilih Orang Tua Terlebih Dahulu...</option>
                                 @else
@@ -69,7 +71,8 @@
 
                         <!-- Balita Info Card (AJAX) -->
                         <div id="balita_info_card" class="card p-3 mb-4 bg-light border-0 d-none">
-                            <h6 class="fw-bold text-success mb-2.5"><i class="fa-solid fa-circle-info me-2"></i>Informasi Balita</h6>
+                            <h6 class="fw-bold text-success mb-2.5"><i class="fa-solid fa-circle-info me-2"></i>Informasi
+                                Balita</h6>
                             <div class="row g-2 text-dark small">
                                 <div class="col-md-6 col-12">
                                     <span class="text-muted d-block" style="font-size: 0.75rem;">Nama Balita</span>
@@ -93,25 +96,31 @@
                         <!-- Berat Badan -->
                         <div class="mb-3">
                             <label class="form-label fw-semibold" for="berat_badan">Berat Badan (kg)</label>
-                            <x-text-input id="berat_badan" class="form-control block mt-1 w-full" type="number" step="0.01" name="berat_badan"
-                                :value="old('berat_badan')" min="0.1" required placeholder="Contoh: 9.0" />
+                            <x-text-input id="berat_badan" class="form-control block mt-1 w-full" type="number" step="0.01"
+                                name="berat_badan" :value="old('berat_badan')" min="0.1" required
+                                placeholder="Contoh: 9.0" />
                             <x-input-error :messages="$errors->get('berat_badan')" class="mt-2" />
                         </div>
 
                         <!-- Tinggi Badan -->
                         <div class="mb-3">
                             <label class="form-label fw-semibold" for="tinggi_badan">Tinggi Badan (cm)</label>
-                            <x-text-input id="tinggi_badan" class="form-control block mt-1 w-full" type="number" step="0.1" name="tinggi_badan"
-                                :value="old('tinggi_badan')" min="1" required placeholder="Contoh: 65.0" />
+                            <x-text-input id="tinggi_badan" class="form-control block mt-1 w-full" type="number" step="0.1"
+                                name="tinggi_badan" :value="old('tinggi_badan')" min="1" required
+                                placeholder="Contoh: 65.0" />
                             <x-input-error :messages="$errors->get('tinggi_badan')" class="mt-2" />
                         </div>
 
                         <!-- Daftar Imunisasi -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold" for="daftar_imunisasi">Daftar Imunisasi yang Diterima</label>
-                            <select id="daftar_imunisasi" name="daftar_imunisasi[]" class="block mt-1 w-full" multiple required>
+                            <label class="form-label fw-semibold" for="daftar_imunisasi">Daftar Imunisasi yang
+                                Diterima</label>
+                            <select id="daftar_imunisasi" name="daftar_imunisasi[]" class="block mt-1 w-full" multiple
+                                required>
                                 @foreach($imunisasiList as $imun)
-                                    <option value="{{ $imun->nama_imunisasi }}">{{ $imun->nama_imunisasi }} (Usia: {{ $imun->umur_bulan }} Bln)</option>
+                                    <option value="{{ $imun->nama_imunisasi }}">{{ $imun->nama_imunisasi }} (Usia:
+                                        {{ $imun->umur_bulan }} Bln)
+                                    </option>
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('daftar_imunisasi')" class="mt-2" />
@@ -150,7 +159,8 @@
 
 {{-- CDNs Style --}}
 @push('page-style')
-    <link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet"></link>
+    <link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet">
+    </link>
 @endpush
 
 {{-- FORM UTILITY SCRIPT --}}
@@ -221,9 +231,9 @@
                     $(this).removeClass('btn-success')
                     $(this).addClass('btn-secondary')
                     $(this).html(`
-                                    <span class="spinner-border spinner-border-sm me-2"></span>
-                                    Loading...
-                                `)
+                                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                                    Loading...
+                                                `)
 
                     // Kirim form via AJAX
                     submitFormViaAjax();
@@ -231,7 +241,7 @@
             })
 
             // AJAX Listener for Balita selection change
-            $('#id_balita').change(function() {
+            $('#id_balita').change(function () {
                 const id = $(this).val();
                 if (!id) {
                     $('#balita_info_card').addClass('d-none');
@@ -248,7 +258,7 @@
                 $.ajax({
                     url: `/analisis-gizi/balita/${id}`,
                     type: 'GET',
-                    success: function(data) {
+                    success: function (data) {
                         $('#info_nama').text(data.nama_balita);
                         $('#info_jk').text(data.jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan');
                         $('#info_tgl_lahir').text(data.tanggal_lahir);
@@ -259,7 +269,7 @@
                         $('#balita_info_card').data('umur_bulan', data.umur_bulan);
                         $('#balita_info_card').data('nama_balita', data.nama_balita);
                     },
-                    error: function() {
+                    error: function () {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
@@ -295,6 +305,8 @@
                 daftar_imunisasi: $('#daftar_imunisasi').val() || []
             };
 
+
+
             $.ajax({
                 url: '/api/calculate-all',
                 type: 'POST',
@@ -307,7 +319,7 @@
                     // Simpan respon dan data input secara lokal di browser sessionStorage
                     sessionStorage.setItem('fuzzy_result', JSON.stringify(response));
                     sessionStorage.setItem('fuzzy_input', JSON.stringify(formData));
-                    
+
                     // Arahkan ke halaman hasil
                     window.location.href = "{{ route('analisis-fuzzy.hasil') }}";
                 },
@@ -324,7 +336,7 @@
                     if (xhr.responseJSON && xhr.responseJSON.error) {
                         errMsg = xhr.responseJSON.error;
                     }
-                    
+
                     Swal.fire({
                         icon: 'error',
                         title: 'Kalkulasi Gagal',
@@ -354,43 +366,47 @@
         const inputs = document.querySelectorAll('main form input');
         const selects = document.querySelectorAll('main form select');
         const resetBtn = document.querySelector('button[type="reset"]')
-        
+
+        const resetAnalisis = () => {
+            resetInputStar()
+            inputs.forEach((input) => {
+                input.classList.remove('is-invalid')
+            })
+            selects.forEach((select) => {
+                select.classList.remove('is-invalid')
+                select.classList.remove('form-select-invalid')
+            })
+            inputGroups.forEach((inputGroup) => {
+                inputGroup.classList.remove('outline-red')
+            })
+            document.querySelectorAll('.error').forEach((e) => e.remove())
+
+            // Reset card info
+            $('#balita_info_card').addClass('d-none').data('jenis_kelamin', '').data('umur_bulan', '').data('nama_balita', '');
+
+            // Clear stored input in session storage when reset
+            sessionStorage.removeItem('fuzzy_input');
+
+            if (window.slimSelectInstance) {
+                window.slimSelectInstance.setSelected([]);
+            }
+            if (window.slimSelectOrangTua) {
+                window.slimSelectOrangTua.setSelected('');
+            }
+            if (window.slimSelectBalita) {
+                window.slimSelectBalita.setSelected('');
+                @if(auth()->user()->can('view-any-balita'))
+                    window.slimSelectBalita.setData([
+                        { text: 'Pilih Orang Tua Terlebih Dahulu...', value: '', placeholder: true }
+                    ]);
+                    window.slimSelectBalita.disable();
+                @endif
+                                }
+        }
+
         if (resetBtn) {
             resetBtn.addEventListener('click', (e) => {
-                resetInputStar()
-                inputs.forEach((input) => {
-                    input.classList.remove('is-invalid')
-                })
-                selects.forEach((select) => {
-                    select.classList.remove('is-invalid')
-                    select.classList.remove('form-select-invalid')
-                })
-                inputGroups.forEach((inputGroup) => {
-                    inputGroup.classList.remove('outline-red')
-                })
-                document.querySelectorAll('.error').forEach((e) => e.remove())
-                
-                // Reset card info
-                $('#balita_info_card').addClass('d-none').data('jenis_kelamin', '').data('umur_bulan', '').data('nama_balita', '');
-                
-                // Clear stored input in session storage when reset
-                sessionStorage.removeItem('fuzzy_input');
-                
-                if (window.slimSelectInstance) {
-                    window.slimSelectInstance.setSelected([]);
-                }
-                if (window.slimSelectOrangTua) {
-                    window.slimSelectOrangTua.setSelected('');
-                }
-                if (window.slimSelectBalita) {
-                    window.slimSelectBalita.setSelected('');
-                    @if(auth()->user()->can('view-any-balita'))
-                        window.slimSelectBalita.setData([
-                            { text: 'Pilih Orang Tua Terlebih Dahulu...', value: '', placeholder: true }
-                        ]);
-                        window.slimSelectBalita.disable();
-                    @endif
-                }
+                resetAnalisis()
             })
         }
 
@@ -482,9 +498,9 @@
                 });
 
                 // Listener untuk filter Balita berdasarkan Orang Tua
-                $('#id_orang_tua').change(function() {
+                $('#id_orang_tua').change(function () {
                     const parentId = $(this).val();
-                    
+
                     // Reset Balita select
                     if (window.slimSelectBalita) {
                         window.slimSelectBalita.setSelected('');
@@ -515,6 +531,13 @@
                 });
             @endif
 
+            // If the query parameter 'new' or 'reset' is present in the URL, clear stored input
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('new') || urlParams.has('reset')) {
+                sessionStorage.removeItem('fuzzy_input');
+                sessionStorage.removeItem('fuzzy_result');
+            }
+
             // Check preselectedId from query param
             const preselectedId = @json($preselectedBalitaId ?? null);
 
@@ -540,11 +563,11 @@
                             break;
                         }
                     }
-                    
+
                     if (foundParentId && window.slimSelectOrangTua) {
                         window.slimSelectOrangTua.setSelected(foundParentId);
                         $('#id_orang_tua').val(foundParentId).trigger('change');
-                        
+
                         // Beri jeda kecil agar select balita merender data baru
                         setTimeout(() => {
                             if (window.slimSelectBalita) {
@@ -554,17 +577,17 @@
                         }, 100);
                     }
                 @else
-                    if (window.slimSelectBalita) {
+                                                    if (window.slimSelectBalita) {
                         window.slimSelectBalita.setSelected(initialBalitaId);
                         $('#id_balita').trigger('change');
                     }
                 @endif
-            }
+                            }
 
             if (initialData) {
                 if (initialData.berat_badan) $('#berat_badan').val(initialData.berat_badan).trigger('input');
                 if (initialData.tinggi_badan) $('#tinggi_badan').val(initialData.tinggi_badan).trigger('input');
-                
+
                 if (initialData.daftar_imunisasi && window.slimSelectInstance) {
                     window.slimSelectInstance.setSelected(initialData.daftar_imunisasi);
                 }

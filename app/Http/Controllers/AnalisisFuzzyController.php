@@ -6,6 +6,7 @@ use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class AnalisisFuzzyController extends Controller
 {
@@ -110,21 +111,52 @@ class AnalisisFuzzyController extends Controller
         $user = Auth::user();
         abort_if(!$user->can('view-any-balita') && !$user->can('view-own-balita'), 403, 'Anda tidak memiliki hak akses untuk menyimpan data pemeriksaan.');
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'id_balita' => 'required|exists:balita,id_balita',
-            'umur_bulan' => 'required|numeric|min:0',
-            'berat_badan' => 'required|numeric|gt:0',
-            'tinggi_badan' => 'required|numeric|gt:0',
-            'imt' => 'required|numeric|gt:0',
+            'umur_bulan' => 'required|numeric|min:0|max:60',
+            'berat_badan' => 'required|numeric|min:1.5|max:40.0',
+            'tinggi_badan' => 'required|numeric|min:35.0|max:130.0',
+            'imt' => 'required|numeric|min:5.0|max:45.0',
             'kategori_bbu' => 'nullable|string',
             'kategori_pbu' => 'nullable|string',
             'kategori_bbpb' => 'nullable|string',
             'kategori_imtu' => 'nullable|string',
-            'nilai_fuzzy' => 'required|numeric',
+            'nilai_fuzzy' => 'required|numeric|between:0,100',
             'kategori_status_gizi' => 'required|string',
             'detail_hasil' => 'required|array',
             'daftar_imunisasi' => 'nullable|array'
+        ], [
+            // Pesan Kustom Bahasa Indonesia kamu tetap sama
+            'id_balita.required' => 'Balita harus dipilih.',
+            'id_balita.exists' => 'Data balita tidak ditemukan di database.',
+            'umur_bulan.required' => 'Umur balita wajib diisi.',
+            'umur_bulan.max' => 'Umur maksimal yang didukung sistem adalah 60 bulan (5 tahun).',
+            'umur_bulan.min' => 'Umur tidak boleh minus.',
+            'berat_badan.required' => 'Berat badan wajib diisi.',
+            'berat_badan.min' => 'Berat badan terlalu kecil (minimal 1.5 kg).',
+            'berat_badan.max' => 'Berat badan melebihi batas maksimal sistem (40 kg).',
+            'tinggi_badan.required' => 'Tinggi badan wajib diisi.',
+            'tinggi_badan.min' => 'Tinggi badan terlalu kecil untuk balita (minimal 35 cm).',
+            'tinggi_badan.max' => 'Tinggi badan melebihi batas maksimal sistem (130 cm).',
+            'imt.required' => 'Nilai IMT wajib disertakan.',
+            'imt.min' => 'Hasil hitung IMT terlalu rendah (minimal 5.0).',
+            'imt.max' => 'Hasil hitung IMT tidak masuk akal secara medis (maksimal 45.0). Periksa kembali input tinggi/berat badan.',
+            'nilai_fuzzy.required' => 'Nilai Predikat Fuzzy wajib diisi.',
+            'nilai_fuzzy.between' => 'Nilai standar fuzzy harus berada di rentang 0 sampai 100.',
+            'kategori_status_gizi.required' => 'Kategori kesimpulan status gizi harus diisi.',
+            'detail_hasil.required' => 'Detail perhitungan aturan fuzzy wajib dilampirkan.',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'is_validation_error' => true,
+                'errors' => $validator->errors()->toArray(),
+                'message' => $validator->errors()->first() // Ambil satu pesan error pertama untuk jalan pintas
+            ], 422);
+        }
+
+        $balita = \App\Models\Balita::findOrFail($request->id_balita);
 
         $balita = \App\Models\Balita::findOrFail($request->id_balita);
 

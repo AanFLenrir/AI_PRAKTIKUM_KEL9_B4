@@ -26,7 +26,7 @@
     @stack('page-style')
 
     <!-- Scripts -->
-    @vite(['', 'resources/js/app.js'])
+    {{-- @vite(['', 'resources/js/app.js']) --}}
 </head>
 
 <body class="font-sans antialiased">

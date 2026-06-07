@@ -52,7 +52,10 @@
             "@php artisan db:seed --class=StatusGiziSeeder",
             "@php artisan db:seed --class=ImunisasiSeeder",
             "@php artisan db:seed --class=RuleFuzzySeeder",
-            "@php artisan db:seed --class=OrangTuaBalitaSeeder"  
+            "@php artisan db:seed --class=OrangTuaBalitaSeeder",
+            "@php artisan db:seed --class=PemeriksaanSeeder",
+            "@php artisan db:seed --class=PemeriksaanImunisasiSeeder",
+            "@php artisan db:seed --class=DetailHasilFuzzySeeder"
         ],
         "add-library": [
             "composer install",

@@ -1,52 +1,63 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+@extends('layouts.app')
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+@section('title', 'Register - SIFUZI Balita')
+
+@section('header')
+<nav></nav>
+@endsection
+
+@section('content')
+
+<section class="auth-section">
+    <div class="container mt-5">
+        <div class="row justify-content-center align-items-center">
+
+            <div class="col-md-5">
+                <div class="auth-card card p-4">
+
+                    <div class="text-center mb-4">
+                        <i class="bi bi-person-plus-fill text-success" style="font-size: 4rem;"></i>
+                        <h3 class="fw-bold mt-3">Buat Akun</h3>
+                        <p class="text-muted">
+                            Daftar untuk menggunakan sistem SIFUZI Balita.
+                        </p>
+                    </div>
+
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" placeholder="Masukkan nama lengkap">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" placeholder="Masukkan email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" placeholder="Masukkan password">
+                        </div>
+
+                        <input type="hidden" value="petugas">
+
+                        <button type="button" class="btn btn-success w-100 py-2">
+                            Daftar
+                        </button>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <small>
+                            Sudah punya akun?
+                            <a href="/login" class="text-success fw-semibold">Login di sini</a>
+                        </small>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
+    </div>
+</section>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+@endsection

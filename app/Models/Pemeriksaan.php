@@ -11,7 +11,7 @@ class Pemeriksaan extends Model
 {
     protected $table = 'pemeriksaan';
     protected $primaryKey = 'id_pemeriksaan';
-    protected $fillable = ['tanggal_periksa', 'umur_bulan', 'berat_badan', 'tinggi_badan', 'nilai_fuzzy', 'id_balita', 'id_user', 'id_status_gizi'];
+    protected $fillable = ['tanggal_periksa', 'umur_bulan', 'berat_badan', 'tinggi_badan', 'nilai_fuzzy', 'id_balita', 'id_user', 'id_status_gizi', 'imt', 'kategori_bbu', 'kategori_pbu', 'kategori_bbpb', 'kategori_imtu'];
     public function balita(): BelongsTo
     {
         return $this->belongsTo(Balita::class, 'id_balita', 'id_balita');

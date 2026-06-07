@@ -17,6 +17,35 @@ return new class extends Migration {
             $col->decimal('berat_badan', 5, 2); // Contoh: 12.35 kg
             $col->decimal('tinggi_badan', 5, 2); // Contoh: 85.50 cm
             $col->decimal('nilai_fuzzy', 5, 2)->nullable();
+            $col->decimal('imt', 4, 2)->nullable();
+            $col->enum('kategori_bbu', [
+                'Berat badan sangat kurang (severely underweight)',
+                'Berat badan kurang (underweight)',
+                'Berat badan normal',
+                'Risiko Berat badan lebih'
+            ])->nullable();
+            $col->enum('kategori_pbu', [
+                'Sangat pendek (severely stunted)',
+                'Pendek (stunted)',
+                'Normal',
+                'Tinggi'
+            ])->nullable();
+            $col->enum('kategori_bbpb', [
+                'Gizi buruk (severely wasted)',
+                'Gizi kurang (wasted)',
+                'Gizi baik (normal)',
+                'Berisiko gizi lebih (possible risk of overweight)',
+                'Gizi lebih (overweight)',
+                'Obesitas (obese)'
+            ])->nullable();
+            $col->enum('kategori_imtu', [
+                'Gizi buruk (severely wasted)',
+                'Gizi kurang (wasted)',
+                'Gizi baik (normal)',
+                'Berisiko gizi lebih (possible risk of overweight)',
+                'Gizi lebih (overweight)',
+                'Obesitas (obese)'
+            ])->nullable();
 
             // Foreign Keys
             $col->foreignId('id_balita')->constrained('balita', 'id_balita')->onDelete('cascade');

@@ -35,7 +35,7 @@
                     <thead class="bg-indigo-50">
                         <tr>
                             <th class="px-6 py-4 text-left text-xs font-semibold text-indigo-800 uppercase tracking-wider">Nama Imunisasi</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-indigo-800 uppercase tracking-wider">Usia Rekomendasi</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-indigo-800 uppercase tracking-wider">Usia Rekomendasi (bulan)</th>
                             <th class="px-6 py-4 text-left text-xs font-semibold text-indigo-800 uppercase tracking-wider">Deskripsi</th>
                             <th class="px-6 py-4 text-right text-xs font-semibold text-indigo-800 uppercase tracking-wider">Aksi</th>
                         </tr>
@@ -44,8 +44,8 @@
                         @forelse($imunisasis as $i)
                         <tr>
                             <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $i->nama_imunisasi }}</td>
-                            <td class="px-6 py-4 text-sm text-gray-600">{{ $i->usia_rekomendasi }}</td>
-                            <td class="px-6 py-4 text-sm text-gray-600">{{ $i->deskripsi ?? '—' }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-600">{{ $i->umur_bulan }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-600">{{ $i->keterangan_imunisasi ?? '—' }}</td>
                             <td class="px-6 py-4 text-right text-sm space-x-3">
                                 <a href="{{ route('imunisasi.edit', $i) }}" class="text-indigo-600 hover:text-indigo-800 transition"><i class="far fa-edit"></i> Edit</a>
                                 <form action="{{ route('imunisasi.destroy', $i) }}" method="POST" class="inline" onsubmit="return confirm('Yakin hapus imunisasi ini?')">

@@ -11,7 +11,7 @@ class ImunisasiController extends Controller
 
     public function index(Request $request)
     {
-        $search = $request->get('search');
+        $search = $request->input('search');
         $imunisasis = Imunisasi::when($search, fn($q) => $q->where('nama_imunisasi', 'like', "%{$search}%")->orWhere('usia_rekomendasi', 'like', "%{$search}%"))->paginate(10);
         return view('admin.master-data.imunisasi.index', compact('imunisasis', 'search'));
     }

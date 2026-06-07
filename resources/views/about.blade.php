@@ -53,26 +53,26 @@
 
         <div class="col-md-6">
             <div class="info-card p-4 h-100">
-                <h4 class="fw-bold">Tujuan Aplikasi</h4>
+                <h4 class="fw-bold mb-3">Tujuan Aplikasi</h4>
 
-                <ul>
-                    <li>Membantu petugas mengelola data balita.</li>
-                    <li>Membantu menentukan status gizi balita.</li>
-                    <li>Menyediakan hasil diagnosa yang mudah dibaca.</li>
-                    <li>Mendukung pengambilan keputusan berbasis data.</li>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Membantu petugas mengelola data balita.</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Membantu menentukan status gizi balita.</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Menyediakan hasil diagnosa yang mudah dibaca.</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Mendukung pengambilan keputusan berbasis data.</li>
                 </ul>
             </div>
         </div>
 
         <div class="col-md-6">
             <div class="info-card p-4 h-100">
-                <h4 class="fw-bold">Anggota Kelompok</h4>
+                <h4 class="fw-bold mb-3">Anggota Kelompok</h4>
 
-                <ul>
-                    <li>Nama Anggota 1</li>
-                    <li>Nama Anggota 2</li>
-                    <li>Nama Anggota 3</li>
-                    <li>Nama Anggota 4</li>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><i class="bi bi-person-fill text-success me-2"></i>Nama Anggota 1</li>
+                    <li class="mb-2"><i class="bi bi-person-fill text-success me-2"></i>Nama Anggota 2</li>
+                    <li class="mb-2"><i class="bi bi-person-fill text-success me-2"></i>Nama Anggota 3</li>
+                    <li class="mb-2"><i class="bi bi-person-fill text-success me-2"></i>Nama Anggota 4</li>
                 </ul>
             </div>
         </div>

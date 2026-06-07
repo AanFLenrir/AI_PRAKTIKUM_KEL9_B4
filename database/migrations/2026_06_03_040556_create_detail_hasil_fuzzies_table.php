@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('detail_hasil_fuzzy', function (Blueprint $col) {
             $col->id('id_detail');
-            $col->string('rule_aktif', 100);
+            $col->string('rule_aktif', 255);
             $col->decimal('alpha_predikat', 4, 3); // Contoh nilai: 0.750
             $col->decimal('nilai_defuzzy', 5, 2);  // Contoh nilai: 75.30
             

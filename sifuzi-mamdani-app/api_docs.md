@@ -12,12 +12,12 @@ Melakukan perhitungan derajat keanggotaan fuzzy, mengevaluasi aturan fuzzy (Mamd
 
 ### Request Payload
 
-| Field | Tipe | Deskripsi | Contoh |
-| :--- | :--- | :--- | :--- |
-| `jenis_kelamin` | `str` | Jenis kelamin balita (`"L"` untuk Laki-laki, `"P"` untuk Perempuan) | `"L"` |
-| `berat_badan` | `float` | Berat badan balita dalam kg (harus > 0) | `9.0` |
-| `tinggi_badan` | `float` | Tinggi badan balita dalam cm (harus > 0) | `65.0` |
-| `umur_bulan` | `int` | Umur balita dalam bulan (harus >= 0) | `12` |
+| Field              | Tipe                    | Deskripsi                                                                                              | Contoh            |
+| :----------------- | :---------------------- | :----------------------------------------------------------------------------------------------------- | :---------------- |
+| `jenis_kelamin`    | `str`                   | Jenis kelamin balita (`"L"` untuk Laki-laki, `"P"` untuk Perempuan)                                    | `"L"`             |
+| `berat_badan`      | `float`                 | Berat badan balita dalam kg (harus > 0)                                                                | `9.0`             |
+| `tinggi_badan`     | `float`                 | Tinggi badan balita dalam cm (harus > 0)                                                               | `65.0`            |
+| `umur_bulan`       | `int`                   | Umur balita dalam bulan (harus >= 0)                                                                   | `12`              |
 | `daftar_imunisasi` | `List[Union[str, int]]` | Daftar imunisasi yang telah diterima, dapat berupa nama imunisasi (string) atau ID imunisasi (integer) | `["HB 0", "BCG"]` |
 
 #### Contoh Request Body
@@ -33,44 +33,74 @@ Melakukan perhitungan derajat keanggotaan fuzzy, mengevaluasi aturan fuzzy (Mamd
 
 ### Response Body
 
-| Field | Tipe | Deskripsi | Contoh |
-| :--- | :--- | :--- | :--- |
-| `status_imunisasi` | `str` | Kategori kelengkapan imunisasi (`"Lengkap"`, `"Sebagian"`, `"Tidak Lengkap"`) | `"Lengkap"` |
-| `skor_gizi` | `float` | Nilai tegas (skor status gizi) hasil defuzzifikasi | `57.0` |
-| `kategori_status_gizi` | `str` | Klasifikasi status gizi akhir (`"Gizi Buruk"`, `"Gizi Kurang"`, `"Normal"`, `"Gizi Lebih"`, `"Obesitas"`) | `"Normal"` |
-| `derajat_keanggotaan` | `dict` | Detail derajat fuzzy keanggotaan input untuk variabel Umur, Berat Badan, Tinggi Badan, dan Imunisasi | `{...}` |
-| `detail_hasil` | `List[dict]` | Detail rule fuzzy yang aktif, berisi `rule_aktif`, `alpha_predikat`, `nilai_deffuzy`, `id_pemeriksaan`, dan `id_rule` | `[...]` |
+| Field                  | Tipe         | Deskripsi                                                                                                             | Contoh      |
+| :--------------------- | :----------- | :-------------------------------------------------------------------------------------------------------------------- | :---------- |
+| `status_imunisasi`     | `str`        | Kategori kelengkapan imunisasi (`"Lengkap"`, `"Sebagian"`, `"Tidak Lengkap"`)                                         | `"Lengkap"` |
+| `skor_gizi`            | `float`      | Nilai tegas (skor status gizi) hasil defuzzifikasi                                                                    | `57.0`      |
+| `kategori_status_gizi` | `str`        | Klasifikasi status gizi akhir (`"Gizi Buruk"`, `"Gizi Kurang"`, `"Normal"`, `"Gizi Lebih"`, `"Obesitas"`)             | `"Normal"`  |
+| `derajat_keanggotaan`  | `dict`       | Detail derajat fuzzy keanggotaan input untuk variabel Umur, Berat Badan, Tinggi Badan, dan Imunisasi                  | `{...}`     |
+| `detail_hasil`         | `List[dict]` | Detail rule fuzzy yang aktif, berisi `rule_aktif`, `alpha_predikat`, `nilai_deffuzy`, `id_pemeriksaan`, dan `id_rule` | `[...]`     |
 
 #### Contoh Response Body
 ```json
 {
-  "status_imunisasi": "Lengkap",
-  "skor_gizi": 57.0,
-  "kategori_status_gizi": "Normal",
-  "derajat_keanggotaan": {
-    "umur": {
-      "Fase1": 0.0,
-      "Fase2": 1.0,
-      "Fase3": 0.0,
-      "Fase4": 0.0,
-      "Fase5": 0.0
-    },
-    "berat_badan": {
-      "Ringan": 0.0,
-      "Sedang": 1.0,
-      "Berat": 0.0
-    },
-    "tinggi_badan": {
-      "Rendah": 0.0,
-      "AgakPanjang": 1.0,
-      "Panjang": 0.0
-    },
-    "imunisasi": {
-      "Lengkap": 1.0,
-      "Sebagian": 0.0,
-      "Tidak Lengkap": 0.0
-    }
-  }
+"status_imunisasi": "Tidak Lengkap",
+"skor_gizi": 45.3082,
+"kategori_status_gizi": "Gizi Buruk",
+"derajat_keanggotaan": {
+"umur": {
+"Fase1": 0.0,
+"Fase2": 0.0,
+"Fase3": 0.3333333333333333,
+"Fase4": 0.6666666666666666,
+"Fase5": 0.0
+},
+"berat_badan": {
+"Ringan": 0.6666666666666672,
+"Sedang": 0.3333333333333328,
+"Berat": 0.0
+},
+"tinggi_badan": {
+"Rendah": 0.0,
+"AgakPanjang": 1.0,
+"Panjang": 0.0
+},
+"imunisasi": {
+"Lengkap": 0.0,
+"Sebagian": 0.0,
+"Tidak Lengkap": 1.0
+}
+},
+"detail_hasil": [
+{
+"rule_aktif": "IF Umur=Fase_3 AND BB=Ringan AND TB=Agak Panjang AND Imunisasi=Tidak Lengkap THEN StatusGizi=Gizi Buruk",
+"alpha_predikat": 0.3333333333333333,
+"nilai_deffuzy": 45.30821389842426,
+"id_pemeriksaan": 0,
+"id_rule": 58
+},
+{
+"rule_aktif": "IF Umur=Fase_3 AND BB=Sedang AND TB=Agak Panjang AND Imunisasi=Tidak Lengkap THEN StatusGizi=Normal",
+"alpha_predikat": 0.3333333333333328,
+"nilai_deffuzy": 45.30821389842426,
+"id_pemeriksaan": 0,
+"id_rule": 67
+},
+{
+"rule_aktif": "IF Umur=Fase_4 AND BB=Ringan AND TB=Agak Panjang AND Imunisasi=Tidak Lengkap THEN StatusGizi=Gizi Buruk",
+"alpha_predikat": 0.6666666666666666,
+"nilai_deffuzy": 45.30821389842426,
+"id_pemeriksaan": 0,
+"id_rule": 85
+},
+{
+"rule_aktif": "IF Umur=Fase_4 AND BB=Sedang AND TB=Agak Panjang AND Imunisasi=Tidak Lengkap THEN StatusGizi=Normal",
+"alpha_predikat": 0.3333333333333328,
+"nilai_deffuzy": 45.30821389842426,
+"id_pemeriksaan": 0,
+"id_rule": 94
+}
+]
 }
 ```
 
@@ -85,20 +115,20 @@ Menghitung kategorisasi Z-Score secara paralel (IMT, BB/U, PB/U, BB/PB, IMT/U) m
 
 ### Request Payload
 
-| Field | Tipe | Deskripsi | Contoh |
-| :--- | :--- | :--- | :--- |
-| `jenis_kelamin` | `str` | `"L"` atau `"P"` | `"L"` |
-| `berat_badan` | `float` | Berat dalam kg | `9.0` |
-| `tinggi_badan` | `float` | Tinggi/Panjang dalam cm | `65.0` |
-| `umur_bulan` | `int` | Umur dalam bulan | `12` |
+| Field           | Tipe    | Deskripsi               | Contoh |
+| :-------------- | :------ | :---------------------- | :----- |
+| `jenis_kelamin` | `str`   | `"L"` atau `"P"`        | `"L"`  |
+| `berat_badan`   | `float` | Berat dalam kg          | `9.0`  |
+| `tinggi_badan`  | `float` | Tinggi/Panjang dalam cm | `65.0` |
+| `umur_bulan`    | `int`   | Umur dalam bulan        | `12`   |
 
 ### Response Body
 
-| Field | Tipe | Deskripsi | Contoh |
-| :--- | :--- | :--- | :--- |
-| `imt` | `float` | Indeks Massa Tubuh | `21.3` |
-| `kategori_bbu` | `str` | Kategori BB/U | `"Berat badan normal"` |
-| `kategori_pbu` | `str` | Kategori PB/U atau TB/U | `"Normal"` |
-| `kategori_bbpb` | `str` | Kategori BB/PB | `"Data SD tidak tersedia"` |
-| `kategori_imtu` | `str` | Kategori IMT/U | `"Data SD tidak tersedia"` |
+| Field           | Tipe    | Deskripsi               | Contoh                 |
+| :-------------- | :------ | :---------------------- | :--------------------- |
+| `imt`           | `float` | Indeks Massa Tubuh      | `21.3`                 |
+| `kategori_bbu`  | `str`   | Kategori BB/U           | `"Berat badan normal"` |
+| `kategori_pbu`  | `str`   | Kategori PB/U atau TB/U | `"Normal"`             |
+| `kategori_bbpb` | `str`   | Kategori BB/PB          | `"Gizi baik (normal)"` |
+| `kategori_imtu` | `str`   | Kategori IMT/U          | `"Gizi baik (normal)"` |
 
